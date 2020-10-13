@@ -24,13 +24,27 @@ class ListPage extends React.Component {
 		this.newPage = this.newPage.bind(this);
 		this.firstPage = this.firstPage.bind(this);
 		this.lastPage = this.lastPage.bind(this);
+		this.extractCurrIdx = this.extractCurrIdx.bind(this);
+	}
+
+	//based on previous and next links, extract the page param and setup currIdx
+	extractCurrIdx(response) {
+		let idx = 1;
+		if(response.previous === null) {
+		} else if (response.next === null){
+			idx = Math.ceil(this.state.items.count / 10);
+		} else {
+			idx = Number(response.next.split("page=")[1]) - 1;
+		}
+
+		return idx;
 	}
 
 	componentDidMount() {
+		//get first page of items
 		this.props.api.getList(this.props.pageName)
 		.then(data => {
-			let currIdx = data.previous === null ?
-			1 : Number(data.next.split("page=")[1]);
+			let currIdx = this.extractCurrIdx(data);
 
 			this.setState({
 				items: data,
@@ -39,11 +53,12 @@ class ListPage extends React.Component {
 		});
 	}
 
+	//get page based on pageId
 	newPage(pageId) {
 		this.props.api.getPage(this.props.pageName, pageId)
 		.then(data => {
-			let currIdx = data.previous === null ?
-			1 : Number(data.next.split("page=")[1]);
+			let currIdx = this.extractCurrIdx(data);
+
 			this.setState({
 				items: data,
 				currIdx: currIdx,
@@ -70,20 +85,21 @@ class ListPage extends React.Component {
 		this.newPage(Math.ceil(this.state.items.count / 10));
 	}
 
-	renderPagination(total, curr) {//TODO: fix the fucking pagination
-		let lastItem = Math.ceil(this.state.items.count / 10) === curr;
+	renderPagination(total, curr) {
 		let prev = curr - 1;
 		let next = curr + 1;
+		let isLastIdx = Math.ceil(this.state.items.count / 10) === curr;
+		let isFirstIdx = !curr > 0 || !prev > 0;
 
 		return <Pagination>
-			<Pagination.First disabled={!curr > 0} onClick={this.firstPage} />
-			<Pagination.Prev disabled={!curr > 0} onClick={this.prevPage} />
-			<Pagination.Item hidden={!prev > 0} onClick={this.prevPage} >{prev}</Pagination.Item>
+			<Pagination.First disabled={isFirstIdx} onClick={this.firstPage} />
+			<Pagination.Prev disabled={isFirstIdx} onClick={this.prevPage} />
+			<Pagination.Item hidden={isFirstIdx} onClick={this.prevPage} >{prev}</Pagination.Item>
 			<Pagination.Item active>{curr}</Pagination.Item>
-			<Pagination.Item hidden={lastItem} onClick={this.nextPage} >{next}</Pagination.Item>
+			<Pagination.Item hidden={isLastIdx} onClick={this.nextPage} >{next}</Pagination.Item>
 			{/* <Pagination.Ellipsis /> */}
-			<Pagination.Next disabled={lastItem} onClick={this.nextPage}/>
-			<Pagination.Last disabled={lastItem} onClick={this.lastPage} />
+			<Pagination.Next disabled={isLastIdx} onClick={this.nextPage}/>
+			<Pagination.Last disabled={isLastIdx} onClick={this.lastPage} />
 		</Pagination>;
 	}
 

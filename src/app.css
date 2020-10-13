@@ -6,10 +6,6 @@ header {
 	margin-bottom: var(--spacing);
 }
 
-footer div {
-	padding: var(--spacing);
-}
-
 main .jumbotron {
 	padding-left: var(--spacing);
 	padding-right: var(--spacing);
@@ -34,7 +30,11 @@ main .jumbotron {
 	width: 15%;
 }
 
-.table:first-of-type td:first-of-type,
-.table:first-of-type td:last-of-type {
+main > .table:first-of-type td:first-of-type,
+main > .table:first-of-type td:last-of-type {
 	text-align: center;
+}
+
+.modal-dialog td {
+	
 }

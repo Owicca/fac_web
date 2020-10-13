@@ -1,3 +1,8 @@
+/*
+getList(String endpoint): Object | false
+getOne(String endpoint, Number id): Object | false
+getPage(String endpoint, Number pageNo): Object | false
+*/
 let Api = function(endpoints) {
 	let $this = this;
 
