@@ -6,7 +6,11 @@ class Footer extends React.Component {
   // }
 
   render() {
-    return <footer>footer here</footer>;
+    return <footer class="container">
+    	<div class="bg-light">
+    	<span>footer here</span>
+    	</div>
+    </footer>;
   }
 }
 

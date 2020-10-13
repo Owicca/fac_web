@@ -1,0 +1,40 @@
+:root {
+	--spacing: 1rem;
+}
+
+header {
+	margin-bottom: var(--spacing);
+}
+
+footer div {
+	padding: var(--spacing);
+}
+
+main .jumbotron {
+	padding-left: var(--spacing);
+	padding-right: var(--spacing);
+}
+
+.nav-link {
+	text-transform: capitalize;
+}
+
+.table:first-of-type,
+.pagination:first-of-type {
+	margin-bottom: 0;
+}
+
+.table-column:first-of-type {
+	width: 5%;
+}
+.table-column:nth-of-type(2) {
+	width: 80%;
+}
+.table-column:last-of-type {
+	width: 15%;
+}
+
+.table:first-of-type td:first-of-type,
+.table:first-of-type td:last-of-type {
+	text-align: center;
+}

@@ -20,7 +20,7 @@ class App extends React.Component {
 		return <BrowserRouter>
         <Header routes={this.props.routes}>
         </Header>
-        <main>
+        <main class="container">
           <Main routes={this.props.routes} api={this.props.api} >
           </Main>
         </main>

@@ -57,6 +57,7 @@ function ItemTableHeader(props) {
 		<tr>
 			<th>#</th>
 			<th>Name</th>
+			<th>Actions</th>
 		</tr>
 	</thead>;
 }
@@ -77,6 +78,9 @@ function ItemTable(props) {
 	});
 
 	return <Table striped bordered hover size="sm">
+		<col class="table-column" />
+		<col class="table-column" />
+		<col class="table-column" />
 		<ItemTableHeader columns={columns} />
 		<ItemTableBody previewName={props.previewName} previewItems={previewItems} items={props.items.results} />
 	</Table>;

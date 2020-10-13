@@ -70,7 +70,7 @@ class ListPage extends React.Component {
 		this.newPage(Math.ceil(this.state.items.count / 10));
 	}
 
-	renderPagination(total, curr) {//TODO: fix the last fucking page events
+	renderPagination(total, curr) {//TODO: fix the fucking pagination
 		let lastItem = Math.ceil(this.state.items.count / 10) === curr;
 		let prev = curr - 1;
 		let next = curr + 1;
